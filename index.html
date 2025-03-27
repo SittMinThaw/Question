@@ -1,1 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romantic Quiz for Zin May Kyaw Myo (Ma Ma) 💖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #ffe4e1;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        h1, h2 {
+            font-family: 'Playfair Display', serif;
+            color: #ff69b4;
+        }
+        button {
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        button:hover {
+            transform: scale(1.1);
+            background-color: #ff1493;
+        }
+        img {
+            max-width: 120px;
+            border-radius: 50%;
+            margin: 20px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .result p {
+            font-size: 18px;
+            color: #4c4c4c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="welcome">
+            <h1>Romantic Quiz for Ma Ma 💖</h1>
+            <p>Are you ready to start, Zin May Kyaw Myo?</p>
+            <br>
+            <button onclick="startQuiz()">Start Quiz</button>
+        </div>
 
+        <div class="question" style="display: none;">
+            <h2 id="question-text"></h2>
+            <div id="question-options"></div>
+            <br>
+            <button id="next-button" onclick="nextQuestion()">Next</button>
+        </div>
+
+        <div class="result" style="display: none;">
+            <h1>Ma Ma's Lovability Score: <span id="score"></span>% 💕</h1>
+            <p id="feedback"></p>
+            <img src="photo_2025-03-27_14-31-16.jpg" alt="Ma Ma's Picture">
+        </div>
+    </div>
+
+    <script>
+        let currentQuestion = 0;
+        let score = 0;
+
+        const questions = [
+            { type: "yesno", text: "Are you happy in our relationship, Ma Ma?", weight: 10 },
+            { type: "yesno", text: "Do you feel loved and appreciated by me, Ma Ma?", weight: 10 },
+            { type: "yesno", text: "Do you trust me completely, Ma Ma?", weight: 10 },
+            { type: "yesno", text: "Do you enjoy spending time together, Ma Ma?", weight: 10 },
+            { type: "yesno", text: "Do you feel supported by me, Ma Ma?", weight: 10 },
+            { type: "yesno", text: "Do you believe we communicate well, Ma Ma?", weight: 10 },
+            { type: "yesno", text: "Are you committed to our relationship, Ma Ma?", weight: 10 },
+            { type: "yesno", text: "Do you feel respected by me, Ma Ma?", weight: 10 }
+        ];
+
+        const startQuiz = () => {
+            document.querySelector(".welcome").style.display = "none";
+            document.querySelector(".question").style.display = "block";
+            loadQuestion();
+        };
+
+        const loadQuestion = () => {
+            if (currentQuestion < questions.length) {
+                const question = questions[currentQuestion];
+                document.getElementById("question-text").textContent = question.text;
+                document.getElementById("question-options").innerHTML = `
+                    <button onclick="answer(10)">Yes</button>
+                    <button onclick="answer(0)">No</button>
+                `;
+            } else {
+                showResult();
+            }
+        };
+
+        const answer = (points) => {
+            score += points;
+            currentQuestion++;
+            loadQuestion();
+        };
+
+        const showResult = () => {
+            document.querySelector(".question").style.display = "none";
+            document.querySelector(".result").style.display = "block";
+            document.getElementById("score").textContent = score;
+            document.getElementById("feedback").textContent = "Ma Ma, you are truly loved and appreciated! Keep being amazing! 💕";
+        };
+    </script>
+</body>
+</html>
